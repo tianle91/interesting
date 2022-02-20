@@ -4,7 +4,8 @@ services:
   app:
     build:
       context: .
+    volumes:
+      - .:/workdir
     ports:
       - 8501:8501
     entrypoint: streamlit run app.py
-  

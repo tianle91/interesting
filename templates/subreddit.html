@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Browsing r/{{ res['subreddit'] }} by interest {% endblock %}</h1>
+
+
+<form class="form-inline" method="post">
+    <div class="form-group mb-2">
+        Subreddit
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <label for="subreddit" class="sr-only">subreddit</label>
+        <input type="text" name="subreddit" id="subreddit" placeholder="{{ res['subreddit'] }}"
+            class="form-control-plaintext" value="{{ res['subreddit'] or request.form['subreddit'] }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Go!</button>
+</form>
+
+<hr>
+<!-- blocks for content -->
+{% for submission in res['content'] %}
+From r/{{ submission['subreddit'] }}:
+<a href="{{ submission['content_url'] }}" target="_blank">{{ submission['title'] }}</a>
+<!-- if there's an image, include it in page -->
+{% if submission['image_url'] is not none %}
+<br>
+<img src="{{ submission['image_url'] }}" alt="image" height="200">
+{% endif %}
+<!-- other info and comment link -->
+<br>
+Interest: {{ submission['interest'] }}
+Score: {{ submission['score'] }}
+Upvote ratio: {{ submission['upvote_ratio'] }}
+<a href="{{ submission['comments_url'] }}">{{ submission['num_comments'] }} comments</a>
+<hr>
+{% endfor %}
+
+{% endblock %}

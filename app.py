@@ -24,21 +24,19 @@ submissions = list(reddit.front.top(time_filter='day'))
 submissions.sort(key=get_interest, reverse=True)
 
 for i, submission in enumerate(submissions):
-    md_str = f'''
-    [{i} *From r/{submission.subreddit.display_name}*]
-    [**{submission.title}**](https://www.reddit.com{submission.permalink})'''
 
-    if len(submission.selftext) == 0:
-        if submission.url.endswith(('.jpg', '.png')):
-            md_str += f'''
-            <img src="{submission.url}" width="200">'''
-        else:
-            md_str += f'''
-            [Content link]({submission.url})'''
+    comments_url = f'https://www.reddit.com{submission.permalink}'
+    content_url = submission.url if len(submission.selftext) > 0 else comments_url
 
-    md_str += f'''
-    Interest: `{get_interest(submission):.2f}`
-    Score: `{submission.score}`
-    Upvote ratio: `{submission.upvote_ratio}`
-    '''
-    st.markdown(md_str)
+    st.markdown(f'''
+    [{i}] *From r/{submission.subreddit.display_name}*
+
+    [**{submission.title}**]({content_url})
+
+    [{submission.num_comments} comments]({comments_url})
+    Interest: {get_interest(submission):.2f}
+    Score: {submission.score}
+    Upvote ratio: {submission.upvote_ratio}
+
+    ----
+    ''')

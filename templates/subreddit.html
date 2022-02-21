@@ -21,17 +21,17 @@
 {% for submission in res['content'] %}
 From r/{{ submission['subreddit'] }}:
 <a href="{{ submission['content_url'] }}" target="_blank">{{ submission['title'] }}</a>
-<!-- if there's an image, include it in page -->
-{% if submission['image_url'] is not none %}
-<br>
-<img src="{{ submission['image_url'] }}" alt="image" height="200">
-{% endif %}
 <!-- other info and comment link -->
 <br>
 Interest: {{ submission['interest'] }}
 Score: {{ submission['score'] }}
 Upvote ratio: {{ submission['upvote_ratio'] }}
 <a href="{{ submission['comments_url'] }}">{{ submission['num_comments'] }} comments</a>
+<!-- if there's an image, include it in page -->
+{% if submission['image_url'] is not none %}
+<br>
+<a href="{{ submission['image_url'] }}"><img src="{{ submission['image_url'] }}" alt="image" height="200"></a>
+{% endif %}
 <hr>
 {% endfor %}
 

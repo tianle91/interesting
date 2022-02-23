@@ -1,5 +1,0 @@
-build:
-  docker:
-    app: Dockerfile
-run:
-  app: gunicorn -b 0.0.0.0:80 app:app

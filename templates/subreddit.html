@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Browsing r/{{ res['subreddit'] }}{% endblock %}</h1>
+<h2>{% block title %} Browsing r/{{ res['subreddit'] }}{% endblock %}</h3>
 
 <form class="form-inline" method="post">
     <div class="form-group mb-2">
@@ -18,14 +18,17 @@
 
 <!-- blocks for content -->
 {% for submission in res['content'] %}
-From r/{{ submission['subreddit'] }}:
-<a href="{{ submission['content_url'] }}" target="_blank">{{ submission['title'] }}</a>
+<h4><a href="{{ submission['content_url'] }}" target="_blank">{{ submission['title'] }}</a></h4>
+<a href="{{ url_for(endpoint='show_interesting_submissions', subreddit=submission['subreddit']) }}">r/{{ submission['subreddit'] }}</a>
+| <a href="{{ submission['comments_url'] }}">{{ submission['num_comments'] }} comments</a>
 <!-- other info and comment link -->
 <br>
-Interest: {{ submission['interest'] }}
-Score: {{ submission['score'] }}
-Upvote ratio: {{ submission['upvote_ratio'] }}
-<a href="{{ submission['comments_url'] }}">{{ submission['num_comments'] }} comments</a>
+<small>
+    Interest: {{ submission['interest'] }}
+    | Score: {{ submission['score'] }}
+    | Upvote ratio: {{ submission['upvote_ratio'] }}
+</small>
+
 <!-- if there's an image, include it in page -->
 {% if submission['image_url'] is not none %}
 <br>

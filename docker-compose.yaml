@@ -6,4 +6,4 @@ services:
       context: .
     ports:
       - 5001:5001
-    entrypoint: gunicorn -b 0.0.0.0:5001 app:app
+    entrypoint: gunicorn -b 0.0.0.0:5001 main:app

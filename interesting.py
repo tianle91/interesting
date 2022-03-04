@@ -20,7 +20,8 @@ async def get_interest(submission: Submission) -> float:
     Subreddit: {submission.subreddit.display_name}
     {submission.selftext}'''
     if len(submission.selftext) > 0 and submission.num_comments > 0:
-        body += f'\n{submission.comments[0].body}'
+        for i in range(min(submission.num_comments, 10)):
+            body += f'\n{submission.comments[i].body}'
     url = urljoin(HF_INFERENCE_URL, 'gpt2loss')
     return float(requests.post(url, json=body[:1000]).json()['loss'])
 

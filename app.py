@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, request, url_for
 
-from interesting import get_interest_cached, reddit
+from interesting import get_interests, reddit
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def index():
 
 
 @app.route('/r/<subreddit>', methods=['GET', 'POST'])
-def show_interesting_submissions(subreddit: str):
+async def show_interesting_submissions(subreddit: str):
     if request.method == 'POST':
         subreddit = request.form['subreddit']
         return redirect(url_for(endpoint='show_interesting_submissions', subreddit=subreddit))
@@ -21,7 +21,8 @@ def show_interesting_submissions(subreddit: str):
         .subreddit(display_name=subreddit)
         .top(time_filter='day', limit=25)
     )
-    submissions.sort(key=get_interest_cached, reverse=True)
+    interests = await get_interests(submissions)
+    submissions.sort(key=lambda x: interests[x.id], reverse=True)
 
     content = []
     for submission in submissions:
@@ -35,7 +36,7 @@ def show_interesting_submissions(subreddit: str):
             'comments_url': comments_url,
             'image_url': image_url,
             'num_comments': submission.num_comments,
-            'interest': f'{get_interest_cached(submission):.2f}',
+            'interest': f'{interests[submission.id]:.2f}',
             'score': submission.score,
             'upvote_ratio': submission.upvote_ratio
         })

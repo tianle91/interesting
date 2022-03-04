@@ -3,7 +3,7 @@ Uses loss of a `gpt2` language model to evaluate interestingness of a reddit sub
 ![screenshot](screenshot.png)
 
 Running `docker-compose up` should work.
-Then navigate to [localhost:5001](localhost:5001).
+Then navigate to [localhost:5001](http://localhost:5001).
 
 ## requirements
 You'll need a [`praw.ini`](https://praw.readthedocs.io/en/stable/getting_started/configuration/prawini.html) file.

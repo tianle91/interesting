@@ -8,5 +8,3 @@ COPY . ./
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 RUN pip install -r requirements-dev.txt
-
-ENTRYPOINT gunicorn -b 0.0.0.0:80 app:app

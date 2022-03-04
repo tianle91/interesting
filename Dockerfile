@@ -1,5 +1,6 @@
 FROM python:3.7
 
+# Deploy your own! See https://github.com/tianle91/hf-inference
 ENV HF_INFERENCE_URL=http://tchen.xyz:33960/
 
 WORKDIR /workdir

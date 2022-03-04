@@ -11,7 +11,7 @@ def index():
 
 
 @app.route('/r/<subreddit>', methods=['GET', 'POST'])
-async def show_interesting_submissions(subreddit: str):
+def show_interesting_submissions(subreddit: str):
     if request.method == 'POST':
         subreddit = request.form['subreddit']
         return redirect(url_for(endpoint='show_interesting_submissions', subreddit=subreddit))
@@ -21,7 +21,7 @@ async def show_interesting_submissions(subreddit: str):
         .subreddit(display_name=subreddit)
         .top(time_filter='day', limit=25)
     )
-    interests = await get_interests(submissions)
+    interests = get_interests(submissions)
     submissions.sort(key=lambda x: interests[x.id], reverse=True)
 
     content = []

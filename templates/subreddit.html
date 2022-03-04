@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Browsing r/{{ res['subreddit'] }} by interest {% endblock %}</h1>
-
+<h1>{% block title %} Browsing r/{{ res['subreddit'] }}{% endblock %}</h1>
 
 <form class="form-inline" method="post">
     <div class="form-group mb-2">
@@ -15,8 +14,8 @@
     </div>
     <button type="submit" class="btn btn-primary">Go!</button>
 </form>
-
 <hr>
+
 <!-- blocks for content -->
 {% for submission in res['content'] %}
 From r/{{ submission['subreddit'] }}:

@@ -4,6 +4,8 @@ Uses loss of a `gpt2` language model to evaluate interestingness of a reddit sub
 
 Running `docker-compose up` should work.
 Then navigate to [localhost:5001](http://localhost:5001).
+You can also see it live [here](https://interesting-343114.ue.r.appspot.com).
+
 
 ## requirements
 You'll need a [`praw.ini`](https://praw.readthedocs.io/en/stable/getting_started/configuration/prawini.html) file.

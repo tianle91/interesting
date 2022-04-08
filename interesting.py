@@ -11,7 +11,7 @@ from prawutils import get_reddit
 reddit = get_reddit()
 interest_cache_path = 'cached_interest.sqlite'
 
-HF_INFERENCE_URL = os.getenv('HF_INFERENCE_URL', 'http://tchen.xyz:33960/')
+HF_INFERENCE_URL = os.getenv('HF_INFERENCE_URL', 'http://vpn.tchen.xyz:33960/')
 
 
 @lru_cache(maxsize=1000000)

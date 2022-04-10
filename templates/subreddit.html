@@ -1,16 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{% block title %} Browsing r/{{ res['subreddit'] }}{% endblock %}</h3>
-
-<form class="form-inline" method="post">
-    <div class="form-group mb-2">
+<form class="form" method="post">
+    <div class="form-group">
         Subreddit
-    </div>
-    <div class="form-group mx-sm-3 mb-2">
-        <label for="subreddit" class="sr-only">subreddit</label>
         <input type="text" name="subreddit" id="subreddit" placeholder="{{ res['subreddit'] }}"
-            class="form-control-plaintext" value="{{ res['subreddit'] or request.form['subreddit'] }}">
+            class="form-control" value="{{ res['subreddit'] or request.form['subreddit'] }}">
     </div>
     <button type="submit" class="btn btn-primary">Go!</button>
 </form>
@@ -18,23 +13,32 @@
 
 <!-- blocks for content -->
 {% for submission in res['content'] %}
-<h4><a href="{{ submission['content_url'] }}" target="_blank">{{ submission['title'] }}</a></h4>
-<a href="{{ url_for(endpoint='show_interesting_submissions', subreddit=submission['subreddit']) }}">r/{{ submission['subreddit'] }}</a>
-| <a href="{{ submission['comments_url'] }}">{{ submission['num_comments'] }} comments</a>
-<!-- other info and comment link -->
-<br>
-<small>
-    Interest: {{ submission['interest'] }}
-    | Score: {{ submission['score'] }}
-    | Upvote ratio: {{ submission['upvote_ratio'] }}
-</small>
-
-<!-- if there's an image, include it in page -->
-{% if submission['image_url'] is not none %}
-<br>
-<a href="{{ submission['image_url'] }}"><img src="{{ submission['image_url'] }}" alt="image" height="200"></a>
-{% endif %}
-<hr>
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            {% if submission['image_url'] is not none %}
+            <a href="{{ submission['image_url'] }}"><img src="{{ submission['image_url'] }}" alt="image" height="200"></a>
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ submission['content_url'] }}" target="_blank">{{ submission['title'] }}</a>
+                </h5>
+                <p class="card-text">
+                    Top Reddit posts ranked by loss function value of a NLP model.
+                </p>
+                <p class="card-text"><small class="text-muted">
+                    <a href="{{ url_for(endpoint='show_interesting_submissions', subreddit=submission['subreddit']) }}">r/{{ submission['subreddit'] }}</a>
+                    | <a href="{{ submission['comments_url'] }}">{{ submission['num_comments'] }} comments</a>
+                    | Interest: {{ submission['interest'] }}
+                    | Score: {{ submission['score'] }}
+                    | Upvote ratio: {{ submission['upvote_ratio'] }}
+                    </small></p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endfor %}
 
 {% endblock %}

@@ -26,7 +26,7 @@
                     <a href="{{ submission['content_url'] }}" target="_blank">{{ submission['title'] }}</a>
                 </h5>
                 <p class="card-text">
-                    Top Reddit posts ranked by loss function value of a NLP model.
+                    {{ submission['selftext'] }}
                 </p>
                 <p class="card-text"><small class="text-muted">
                     <a href="{{ url_for(endpoint='show_interesting_submissions', subreddit=submission['subreddit']) }}">r/{{ submission['subreddit'] }}</a>
